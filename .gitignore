@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Production / Build output
+dist/
+build/
+
+# Environment variables (Rahasia)
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
