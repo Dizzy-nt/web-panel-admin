@@ -1,5 +1,11 @@
 const app = require('./app');
 const sequelize = require('./config/database');
+
+//import model agar dikenali sequelize
+require('./models/Produk');
+require('./models/Transaksi');
+require('./models/User');
+
 const PORT = process.env.PORT || 3000;
 
 //menyinkronkan model dengan database, kemudian menjalankan server
