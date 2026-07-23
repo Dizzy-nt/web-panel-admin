@@ -23,3 +23,5 @@ const User = sequelize.define('User', {
 }, {
     timestamps: true, // Menambahkan kolom createdAt dan updatedAt
 });
+
+module.exports = User;
