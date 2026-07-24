@@ -3,7 +3,7 @@ const sequelize = require('./config/database');
 
 //import model agar dikenali sequelize
 require('./models/Product');
-require('./models/Transaksi');
+require('./models/Transaction');
 require('./models/User');
 
 const PORT = process.env.PORT || 3000;

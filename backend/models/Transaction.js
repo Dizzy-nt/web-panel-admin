@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize');
 const sequelize = require('../config/database');
 const Product = require('./Product');
 
-const Transaksi = sequelize.define('Transaksi', {
+const Transaction = sequelize.define('Transaction', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -26,7 +26,7 @@ const Transaksi = sequelize.define('Transaksi', {
 });
 
 //mendefinisikan relasi: 1 produk -> banyak transaksi
-Product.hasMany(Transaksi, { foreignKey: 'produk_id', as:'transaksi' });
-Transaksi.belongsTo(Product, { foreignKey: 'produk_id', as:'produk' });
+Product.hasMany(Transaction, { foreignKey: 'product_id', as:'transactions' });
+Transaction.belongsTo(Product, { foreignKey: 'product_id', as:'product' });
 
-module.exports = Transaksi;
+module.exports = Transaction;

@@ -7,8 +7,8 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
     try {
-        const product = await Product.create(req.body);
-        res.status(201).json(product);
+        const newProduct = await Product.create(req.body);
+        res.status(201).json(newProduct);
     } catch (error) {
         res.status(400).json({ message: "Gagal menambah produk"});
     }
@@ -17,7 +17,7 @@ exports.createProduct = async (req, res) => {
 exports.updateProduct = async (req,res)=>{
     try {
         await Product.update(req.body, { where: { id: req.params.id } });
-        res.json({ message: "Produk berhasil diperbarui" });
+        res.status(200).json({ message: "Produk berhasil diperbarui" });
     } catch (error) {
         res.status(400).json({ message: "Gagal memperbarui produk" });
     }
@@ -26,7 +26,7 @@ exports.updateProduct = async (req,res)=>{
 exports.removeProduct = async (req,res)=>{
     try {
         await Product.destroy({ where: { id: req.params.id } });
-        res.json({ message: "Produk berhasil dihapus" });
+        res.status(200).json({ message: "Produk berhasil dihapus" });
     } catch (error) {
         res.status(400).json({ message: "Gagal menghapus produk" });
     }

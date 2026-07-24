@@ -7,7 +7,7 @@ const authMiddleware = require("../middlewares/auth");
 router.use(authMiddleware);
 
 // GET semua produk
-router.get("/product", productController.getAllProducts);
+router.get("/", productController.getAllProducts);
 // POST tambah produk baru
 router.post("/", productController.createProduct);
 // PUT update produk berdasarkan id

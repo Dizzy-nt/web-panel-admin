@@ -4,14 +4,16 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json()); // Untuk membaca request body berupa JSON
 // Import routes
-app.use('/api/login',authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 // Route sederhana untuk test
 app.get('/', (req, res) => {
