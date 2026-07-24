@@ -7,15 +7,15 @@ const Product = sequelize.define('Product', {
         primaryKey: true,
         autoIncrement: true
     },
-    nama_produk: {
+    product_name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    harga: {
+    price: {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    stok: {
+    stock: {
         type: DataTypes.INTEGER,
         allowNull: false
     }

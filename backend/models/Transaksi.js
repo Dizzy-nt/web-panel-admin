@@ -8,7 +8,7 @@ const Transaksi = sequelize.define('Transaksi', {
         primaryKey: true,
         autoIncrement: true,
     },
-    tanggal_transaksi: {
+    transaction_date: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
     },
@@ -16,7 +16,7 @@ const Transaksi = sequelize.define('Transaksi', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    total_harga: {
+    total_price: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
@@ -26,7 +26,7 @@ const Transaksi = sequelize.define('Transaksi', {
 });
 
 //mendefinisikan relasi: 1 produk -> banyak transaksi
-Produk.hasMany(Transaksi, { foreignKey: 'produk_id', as:'transaksi' });
-Transaksi.belongsTo(Produk, { foreignKey: 'produk_id', as:'produk' });
+Product.hasMany(Transaksi, { foreignKey: 'produk_id', as:'transaksi' });
+Transaksi.belongsTo(Product, { foreignKey: 'produk_id', as:'produk' });
 
 module.exports = Transaksi;
