@@ -2,7 +2,7 @@ const app = require('./app');
 const sequelize = require('./config/database');
 
 //import model agar dikenali sequelize
-require('./models/Produk');
+require('./models/Product');
 require('./models/Transaksi');
 require('./models/User');
 

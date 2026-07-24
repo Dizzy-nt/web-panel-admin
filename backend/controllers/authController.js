@@ -21,18 +21,3 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: "Terjadi kesalahan server" });
     }
 };
-
-// fungsi helper untuk membuat user baru (untuk testing)
-exports.register = async (req, res) => {
-    try {
-        const { username, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const role = req.body.role || "admin";
-        await User.create({ username, password: hashedPassword, role });
-        
-        res.status(201).json({ message: "Admin berhasil dibuat" });
-    }catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Terjadi kesalahan server" });
-    }
-};
