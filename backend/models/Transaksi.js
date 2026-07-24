@@ -17,7 +17,7 @@ const Transaksi = sequelize.define('Transaksi', {
         allowNull: false
     },
     total_price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: false
     }
     // produk_id tidak perlu ditulis manual di sini karena akan otomatis dibuat oleh relasi Sequelize di bawah
