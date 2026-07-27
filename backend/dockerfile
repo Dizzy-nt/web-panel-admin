@@ -1,17 +1,20 @@
 # image yang mau kita pakai
-FROM node:24-slim
-
+FROM node:24-slim AS base
 # tempat file backend diletakkan di container
 WORKDIR /app
-
 # copy file package.json dan package-lock.json ke container
 COPY package*.json ./
 
 # install dependencies di folder backend
-RUN npm install
+RUN npm ci
 
+FROM base AS development
+COPY . .
 # port yang akan dibuka
 EXPOSE 3000
-
 # perintah yang di run ketika container hidup
 CMD ["npm", "run", "dev"]
+
+FROM base AS production
+COPY . .
+CMD [ "npm","start" ]
