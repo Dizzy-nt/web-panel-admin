@@ -10,6 +10,8 @@ COPY package*.json ./
 # install dependencies di folder backend
 RUN npm install
 
+COPY . .
+
 # port yang akan dibuka
 EXPOSE 3000
 
