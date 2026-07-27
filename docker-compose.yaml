@@ -1,0 +1,93 @@
+# Blok utama tempat kita mendefinisikan semua aplikasi/layanan yang akan berjalan
+services:
+# 1. Database: Postgres
+  database:
+    image: postgres:16-alpine
+    # biar ke restart setiap mati
+    restart: unless_stopped
+    # Mengatur variabel lingkungan wajib untuk setup awal database PostgreSQL
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Menghubungkan port laptop (kiri) ke port di dalam container (kanan)
+    # Ini membuat database bisa diakses dari aplikasi luar seperti DBeaver/TablePlus lewat localhost:5432
+    ports:
+      - "5432:5432"
+    # Menyimpan data database ke penyimpanan permanen (volume) di laptop Anda
+    # Tanpa ini, semua data di database akan hilang setiap kali container dimatikan
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+  
+  backend:
+    build: 
+      context: ./backend
+
+    restart: unless_stopped
+
+    working_dir: /app
+
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      NODE_ENV: development
+
+      PORT: 3000
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+
+    command: npm run dev
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  frontend:
+    build: 
+      context: ./frontend
+      target: development
+
+    working_dir: /app
+
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    ports:
+      - "5173:5173"
+
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+
+    command: npm run dev -- --host
+    
+    depends_on:
+      - backend
+
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
+
